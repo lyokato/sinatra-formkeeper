@@ -7,7 +7,6 @@ end
 
 post '/login' do
   form do |rule|
-    p self
     field :username, :present => true, :length => 4..8
     field :password, :present => true, :length => 4..8
   end
