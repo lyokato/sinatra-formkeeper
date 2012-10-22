@@ -18,13 +18,13 @@ describe Sinatra::FormKeeper do
   end
 
   describe "form validation with valid params" do
-    before  { post '/login', :username => 'John', :password => 'Foobar'  }
+    before  { post '/login', :username => ' John', :password => 'Foobar'  }
     subject { last_response }
     it "responds" do
       should be_ok
     end
     it "returns repsonse body" do
-      subject.body.should == "login success" 
+      subject.body.should == "login success John:Foobar" 
     end
   end
 
