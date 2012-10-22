@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Sinatra::FormKeeper::VERSION
   gem.authors       = ["lyokato"]
   gem.email         = ["lyo.kato@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Sinatra extension which handles stuff around HTML forms}
+  gem.summary       = %q{This module provides you a easy way for form-validation and fill-in-form}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)

@@ -90,10 +90,10 @@ module Sinatra
       def form(&block)
         if block
           rule = ::FormKeeper::Rule.new
-          rule.instance_eval(block)
+          rule.instance_eval(&block)
           messages = settings.form_failure_messages
           @form_report = 
-            settings.form_validator.validate(params, @form_rule, messages)
+            settings.form_validator.validate(params, rule, messages)
         end
         @form_report
       end
