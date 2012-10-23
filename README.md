@@ -1,6 +1,6 @@
 # Sinatra::FormKeeper
 
-TODO: Write a gem description
+This module provides you a easy way for form-validation and fill-in-form on your sinatra application
 
 ## Installation
 
@@ -262,9 +262,35 @@ If you want to show messages for each field, separately, of course you can.
       </body>
     </html>
 
-### 8: Custom Filter
+### 8: Utilize Plugins
 
-### 9: Custom Validator
+    require 'formkeeper/japanese' 
+
+    post '/entry' do
+      form do
+        filters :zenkaku2hankaku
+      end
+    end
+
+### 9: Custom Filter
+
+    form_filter :my_capitalize_filter do |value|
+      value.capitalize
+    end
+
+    post '/entry' do
+      form do
+        filters :my_capitalize_filter
+      end
+    end
+
+
+### 10: Custom Constraint
+
+## See Also
+
+https://github.com/lyokato/formkeeper/
+https://github.com/lyokato/formkeeper-japanese/
 
 ## Contributing
 
