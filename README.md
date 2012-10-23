@@ -66,6 +66,117 @@ Calling 'form' with block which includes rule-setting,
 you can build a form-rule.
 There are some DSL-method to build rules. In this example, 'filters' and 'field' are written.
 
+#### filters
+
+You can set 'filters'. All input parameters are filtered by indicated filtering feature
+The filtering process is executed before validation.
+
+    form do
+      filters :strip
+      ...
+    end
+
+You can set multiple filters at once
+
+    form do
+      filters :strip, :downcase
+      ...
+    end
+
+All preset filters are described at [8: Preset Filters]
+
+#### field
+
+You can add a setting for each field
+
+  form do
+    field :field_name, :present => true, length => 0..10
+    ...
+  end
+
+This constraint works for an input form named as "field_name", for instance
+
+  <input type="text" name="field_name" />
+
+And key-value pares are following the field name.
+They are constraints set for the field.
+You can add your favorite constraints here.
+
+All preset constraints are described at [9: Preset Constraints]
+Read the chapter for more detail.
+
+And you can set filters here,
+if you don't want to filter all the parameters included in the request.
+This filtering setting only affets on :field_name.
+
+  form do
+    field :field_name, :present => true, filters => [:strip, :downcase]
+    ...
+  end
+
+You can set as just one single symbol, if you don't need multiple filters.
+
+  form do
+    field :field_name, :present => true, filters => :strip
+    ...
+  end
+
+#### checkbox
+
+You also can set the rule like this.
+
+  form do
+    checkbox :field_name, :count => 1..3, int => true
+  end
+
+This is just for field which has multiple values.
+For instance,
+
+    <input type="checkbox" name="field_name[]" value="1" checked>
+    <label>check1</label>
+    <input type="checkbox" name="field_name[]" value="2" checked>
+    <label>check2</label>
+    <input type="checkbox" name="field_name[]" value="3" checked>
+    <label>check3</label>
+
+Or
+
+    <select name="favorite[]" multiple>
+      <option value="1" selected="selected">white</option>
+      <option value="2">black</option>
+      <option value="3">blue</option>
+    </select>
+
+Rack request handle such type of name (exp: field_name[]) as Array.
+For this type of input, use 'checkbox' method.
+In this case, you must use :count constraints instead of :present.
+
+#### combination
+
+There is another special rule, 'Combination'
+
+    form do
+      combination :same_address, :fields => ["email01", "email02"], :same => true
+      combination :favorite_color, :fields => ["white", "black", "blue"], :any => true
+    end
+
+Set rule-name as a first argument.
+And you should set multiple target fields.
+And one constraint like (:same => true), or (:any => true).
+
+:same and :any are called as 'Combination Constraint'
+For this purpose, formkeeper provides you a simple way to do same things.
+
+    form do
+      same :same_address, ["email01", "email02"]
+      any :favorite_color, ["white", "black", "blue"]
+    end
+
+You can call a name of 'Combination Constraints' as a method.
+Followed by rule-name and target-fields.
+
+All preset constraints are described at [10: Preset Combination Constraints]
+
 ### 2: Check if user's input is valid or not
 
 'form.failed?' can be used to judge if user's input is valid for the rule you build.
@@ -262,7 +373,36 @@ If you want to show messages for each field, separately, of course you can.
       </body>
     </html>
 
-### 8: Utilize Plugins
+### 8: Preset Filters
+
+#### strip
+#### downcase
+#### upcase
+
+### 9: Preset Constraints
+
+#### present
+#### length
+#### characters
+#### ascii
+#### regexp
+#### int
+#### uint
+#### alpha
+#### alpha_space
+#### alnum
+#### alnum_space
+#### uri
+
+### 10: Preset Combination Constraints
+
+#### same
+#### any
+#### date
+#### time
+#### datetime
+
+### 11: Utilize Plugins
 
     require 'formkeeper/japanese' 
 
@@ -272,7 +412,7 @@ If you want to show messages for each field, separately, of course you can.
       end
     end
 
-### 9: Custom Filter
+### 12: Custom Filter
 
     form_filter :my_capitalize_filter do |value|
       value.capitalize
@@ -285,7 +425,7 @@ If you want to show messages for each field, separately, of course you can.
     end
 
 
-### 10: Custom Constraint
+### 13: Custom Constraint
 
 ## See Also
 
