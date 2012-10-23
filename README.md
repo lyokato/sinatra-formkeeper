@@ -89,14 +89,14 @@ All preset filters are described at [8: Preset Filters]
 
 You can add a setting for each field
 
-  form do
-    field :field_name, :present => true, length => 0..10
-    ...
-  end
+    form do
+      field :field_name, :present => true, length => 0..10
+      ...
+    end
 
 This constraint works for an input form named as "field_name", for instance
 
-  <input type="text" name="field_name" />
+    <input type="text" name="field_name" />
 
 And key-value pares are following the field name.
 They are constraints set for the field.
@@ -109,25 +109,26 @@ And you can set filters here,
 if you don't want to filter all the parameters included in the request.
 This filtering setting only affets on :field_name.
 
-  form do
-    field :field_name, :present => true, filters => [:strip, :downcase]
-    ...
-  end
+    form do
+      field :field_name, :present => true, filters => [:strip, :downcase]
+      ...
+    end
 
 You can set as just one single symbol, if you don't need multiple filters.
 
-  form do
-    field :field_name, :present => true, filters => :strip
-    ...
-  end
+    form do
+      field :field_name, :present => true, filters => :strip
+      ...
+    end
 
 #### checkbox
 
 You also can set the rule like this.
 
-  form do
-    checkbox :field_name, :count => 1..3, int => true
-  end
+    form do
+      checkbox :field_name, :count => 1..3, int => true
+      ...
+    end
 
 This is just for field which has multiple values.
 For instance,
