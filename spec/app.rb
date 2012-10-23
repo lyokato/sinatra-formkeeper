@@ -3,13 +3,17 @@ require 'sinatra/formkeeper'
 
 form_messages File.expand_path(File.join(File.dirname(__FILE__), 'messages.yaml'))
 
+register_form_filter :my_filter do |value|
+  value.capitalize
+end
+
 get '/login' do
   erb :login
 end
 
 post '/login' do
   form do
-    filters :strip
+    filters :strip, :my_filter
     field :username, :present => true, :length => 4..8
     field :password, :present => true, :length => 4..8
   end

@@ -72,6 +72,17 @@ module Sinatra
   #   </html>
   #
   module FormKeeper
+
+    def register_form_filter(name, &block)
+      ::FormKeeper::Validator.register_filter name, 
+        ::FormKeeper::Filter::Custom.new(block)
+    end
+
+    def register_form_constraint(name, &block)
+      ::FormKeeper::Validator.register_constraint name, 
+        ::FormKeeper::Constraint::Custom.new(block)
+    end
+
     def form_messages(arg)
       case arg
       when String

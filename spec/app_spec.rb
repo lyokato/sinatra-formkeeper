@@ -30,7 +30,7 @@ describe Sinatra::FormKeeper do
   end
 
   describe "form validation with valid params" do
-    before  { post '/login', :username => ' John', :password => 'Foobar'  }
+    before  { post '/login', :username => ' john', :password => 'foobar'  }
     subject { last_response }
     it "responds" do
       should be_ok
