@@ -3,7 +3,7 @@ require 'sinatra/formkeeper'
 
 form_messages File.expand_path(File.join(File.dirname(__FILE__), 'messages.yaml'))
 
-register_form_filter :my_filter do |value|
+form_filter :my_filter do |value|
   value.capitalize
 end
 
