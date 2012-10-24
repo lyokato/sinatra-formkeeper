@@ -502,8 +502,8 @@ end
 
 ## See Also
 
-https://github.com/lyokato/formkeeper/
-https://github.com/lyokato/formkeeper-japanese/
+* https://github.com/lyokato/formkeeper/
+* https://github.com/lyokato/formkeeper-japanese/
 
 ## Contributing
 
