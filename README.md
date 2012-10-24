@@ -20,6 +20,7 @@ Or install it yourself as:
 
 ### Synopsis
 
+```ruby
     require 'sinatra/formkeeper'
 
     get '/sign_up' do
@@ -37,33 +38,40 @@ Or install it yourself as:
         "singup success " + form[:username]
       end
     end
+```
 
 ### 0: Preparation
 
 At your application file's header, add 'require' line for this library.
 
+```ruby
     require 'sinatra/formkeeper'
+```
 
 And if your application is Sinatra::Base inheritance type, register Sinatra::FormKeeper
 
+```ruby
     class MyApp < Sinatra::Base
       register Sinatra::FormKeeper
-      ...
+      #...
     end
+```
 
 ### 1: Building rules
 
 In your routing block, you should build a form-rule at first, 
 like following
 
+```ruby
     post '/entry' do 
       form do
         filters :strip
         field :title,   :present => true, :length => 4..20
         field :message, :present => true, :length => 0..200
       end
-      ...
+      #...
     end
+```
 
 Calling 'form' with block which includes rule-setting,
 you can build a form-rule.
@@ -74,17 +82,21 @@ There are some DSL-method to build rules. In this example, 'filters' and 'field'
 You can set 'filters'. All input parameters are filtered by indicated filtering feature
 The filtering process is executed before validation.
 
+```ruby
     form do
       filters :strip
-      ...
+      #...
     end
+```
 
 You can set multiple filters at once
 
+```ruby
     form do
       filters :strip, :downcase
-      ...
+      #...
     end
+```
 
 All preset filters are described at [8: Preset Filters]
 
@@ -92,10 +104,12 @@ All preset filters are described at [8: Preset Filters]
 
 You can add a setting for each field
 
+```ruby
     form do
       field :field_name, :present => true, length => 0..10
-      ...
+      #...
     end
+```
 
 This constraint works for an input form named as "field_name", for instance
 
@@ -114,10 +128,12 @@ and other validation for rest constraints won't be executed.
 
 You also can set :default
 
+```ruby
     form do
       field :field_name, :default => 'Default Value', :length => 0..10
-      ...
+      #...
     end
+```
 
 When it's set, if parameter not found, the indicated value will be set
 and other validation for rest constraints won't be executed.
@@ -128,44 +144,54 @@ And you can set filters here,
 if you don't want to filter all the parameters included in the request.
 This filtering setting only affets on :field_name.
 
+```ruby
     form do
       field :field_name, :present => true, filters => [:strip, :downcase]
-      ...
+      #...
     end
+```
 
 You can set as just one single symbol, if you don't need multiple filters.
 
+```ruby
     form do
       field :field_name, :present => true, filters => :strip
-      ...
+      #...
     end
+```
 
 #### checkbox
 
 You also can set the rule like this.
 
+```ruby
     form do
       checkbox :field_name, :count => 1..3, int => true
-      ...
+      #...
     end
+```
 
 This is just for field which has multiple values.
 For instance,
 
+```html
     <input type="checkbox" name="field_name[]" value="1" checked>
     <label>check1</label>
     <input type="checkbox" name="field_name[]" value="2" checked>
     <label>check2</label>
     <input type="checkbox" name="field_name[]" value="3" checked>
     <label>check3</label>
+```
 
 Or
 
+```html
     <select name="favorite[]" multiple>
       <option value="1" selected="selected">white</option>
       <option value="2">black</option>
       <option value="3">blue</option>
     </select>
+```
 
 Rack request handle such type of name (exp: field_name[]) as Array.
 For this type of input, use 'checkbox' method.
@@ -175,10 +201,12 @@ In this case, you must use :count constraints instead of :present.
 
 There is another special rule, 'Combination'
 
+```ruby
     form do
       combination :same_address, :fields => ["email01", "email02"], :same => true
       combination :favorite_color, :fields => ["white", "black", "blue"], :any => true
     end
+```
 
 Set rule-name as a first argument.
 And you should set multiple target fields.
