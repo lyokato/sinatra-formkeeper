@@ -22,16 +22,19 @@ Or install it yourself as:
 
     require 'sinatra/formkeeper'
 
-    get '/login' do
+    get '/sign_up' do
       form do
         filters :strip, :my_filter
         field :username, :present => true, :length => 4..8
-        field :password, :present => true, :length => 4..8
+        field :age, :present => true, :int => { :gte => 18 }
+        field :password01, :present => true, :length => 4..8
+        field :password02, :present => true, :length => 4..8
+        same :same_password, [:password01, :password02]
       end
       if form.failed?
-        "login failed"
+        "signup failed"
       else
-        "login success " + form[:username] + ":" + form[:password]
+        "singup success " + form[:username]
       end
     end
 
@@ -104,6 +107,22 @@ You can add your favorite constraints here.
 
 All preset constraints are described at [9: Preset Constraints]
 Read the chapter for more detail.
+
+:present is a special constraint. if parameter not found for the field which
+set :present constraint, the field will be marked as 'not present',
+and other validation for rest constraints won't be executed.
+
+You also can set :default
+
+    form do
+      field :field_name, :default => 'Default Value', :length => 0..10
+      ...
+    end
+
+When it's set, if parameter not found, the indicated value will be set
+and other validation for rest constraints won't be executed.
+
+You aren't allowed to set both :present and :default at same time.
 
 And you can set filters here,
 if you don't want to filter all the parameters included in the request.
