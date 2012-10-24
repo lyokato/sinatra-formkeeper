@@ -451,18 +451,188 @@ If you want to show messages for each field, separately, of course you can.
 
 ### 9: Preset Constraints
 
-#### present
 #### length
+
+calculate length. this constraint use String#length internally
+You can set integer.
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :length => 10
+  end
+  #...
+end
+```
+
+Or as range
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :length => 4..10
+  end
+  #...
+end
+```
+
 #### bytesize
+
+Calculate byte size. this constraint use String#bytesize internally
+You can set integer.
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :bytesize => 10
+  end
+  #...
+end
+```
+
+Or as range
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :bytesize => 4..10
+  end
+  #...
+end
+```
+
 #### ascii
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :ascii => true
+  end
+  #...
+end
+```
+
 #### regexp
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :regexp => %r{regexp}
+  end
+  #...
+end
+```
+
 #### int
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :int => true
+  end
+  #...
+end
+```
+
+Fore more detailed constraint,
+You can use following options as a hash.
+
+* gt: This means >
+* gte: This means >=
+* lt: This means <
+* lte: This means <=
+* between: Or you can set Range object
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :int => { :gt => 5, :lt => 10 }
+  end
+  #...
+end
+```
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :int => { :gte => 5, :lte => 10 }
+  end
+  #...
+end
+```
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :int => { :between => 5..10 }
+  end
+  #...
+end
+```
+
 #### uint
+
+Unsined integer. This doesn't allow lass than zero.
+Except for that, it behaves same as integer
+
+```ruby
+post '/entry' do 
+  form do
+    field :field01, :present => true, :uint => { :between => 5..10 }
+  end
+  #...
+end
+```
+
 #### alpha
+
+Alphabet
+
 #### alpha_space
+
+Alphabet and Space
+
 #### alnum
+
+Alphabet and Number
+
 #### alnum_space
+
+Alphabet, Number and Space
+
 #### uri
+
+Limit a scheme as Array
+
+```ruby
+post '/entry' do 
+  form do
+    field :your_address, :present => true, :uri => [:http, :https], :bytesize => 10..255
+  end
+  #...
+end
+```
+
+```ruby
+post '/entry' do 
+  form do
+    field :your_address, :present => true, :uri => [:http], :bytesize => 10..255
+  end
+  #...
+end
+```
+
+If your scheme option is only one.
+You can set as a String.
+
+```ruby
+post '/entry' do 
+  form do
+    field :your_address, :present => true, :uri => :http, :bytesize => 10..255
+  end
+  #...
+end
+```
 
 ### 10: Preset Combination Constraints
 
