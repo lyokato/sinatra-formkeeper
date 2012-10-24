@@ -162,13 +162,13 @@ form do
 end
 ```
 
-#### checkbox
+#### selection
 
 You also can set the rule like this.
 
 ```ruby
 form do
-  checkbox :field_name, :count => 1..3, int => true
+  selection :field_name, :count => 1..3, int => true
   #...
 end
 ```
@@ -196,7 +196,7 @@ Or
 ```
 
 Rack request handle such type of name (exp: field_name[]) as Array.
-For this type of input, use 'checkbox' method.
+For this type of input, use 'selection' method.
 In this case, you must use :count constraints instead of :present.
 
 #### combination
