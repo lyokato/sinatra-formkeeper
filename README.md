@@ -105,15 +105,17 @@ All preset filters are described at [8: Preset Filters]
 You can add a setting for each field
 
 ```ruby
-    form do
-      field :field_name, :present => true, length => 0..10
-      #...
-    end
+form do
+  field :field_name, :present => true, length => 0..10
+  #...
+end
 ```
 
 This constraint works for an input form named as "field_name", for instance
 
-    <input type="text" name="field_name" />
+```html
+<input type="text" name="field_name" />
+```
 
 And key-value pares are following the field name.
 They are constraints set for the field.
@@ -129,10 +131,10 @@ and other validation for rest constraints won't be executed.
 You also can set :default
 
 ```ruby
-    form do
-      field :field_name, :default => 'Default Value', :length => 0..10
-      #...
-    end
+form do
+  field :field_name, :default => 'Default Value', :length => 0..10
+  #...
+end
 ```
 
 When it's set, if parameter not found, the indicated value will be set
@@ -145,19 +147,19 @@ if you don't want to filter all the parameters included in the request.
 This filtering setting only affets on :field_name.
 
 ```ruby
-    form do
-      field :field_name, :present => true, filters => [:strip, :downcase]
-      #...
-    end
+form do
+  field :field_name, :present => true, filters => [:strip, :downcase]
+  #...
+end
 ```
 
 You can set as just one single symbol, if you don't need multiple filters.
 
 ```ruby
-    form do
-      field :field_name, :present => true, filters => :strip
-      #...
-    end
+form do
+  field :field_name, :present => true, filters => :strip
+  #...
+end
 ```
 
 #### checkbox
@@ -165,32 +167,32 @@ You can set as just one single symbol, if you don't need multiple filters.
 You also can set the rule like this.
 
 ```ruby
-    form do
-      checkbox :field_name, :count => 1..3, int => true
-      #...
-    end
+form do
+  checkbox :field_name, :count => 1..3, int => true
+  #...
+end
 ```
 
 This is just for field which has multiple values.
 For instance,
 
 ```html
-    <input type="checkbox" name="field_name[]" value="1" checked>
-    <label>check1</label>
-    <input type="checkbox" name="field_name[]" value="2" checked>
-    <label>check2</label>
-    <input type="checkbox" name="field_name[]" value="3" checked>
-    <label>check3</label>
+<input type="checkbox" name="field_name[]" value="1" checked>
+<label>check1</label>
+<input type="checkbox" name="field_name[]" value="2" checked>
+<label>check2</label>
+<input type="checkbox" name="field_name[]" value="3" checked>
+<label>check3</label>
 ```
 
 Or
 
 ```html
-    <select name="favorite[]" multiple>
-      <option value="1" selected="selected">white</option>
-      <option value="2">black</option>
-      <option value="3">blue</option>
-    </select>
+<select name="favorite[]" multiple>
+  <option value="1" selected="selected">white</option>
+  <option value="2">black</option>
+  <option value="3">blue</option>
+</select>
 ```
 
 Rack request handle such type of name (exp: field_name[]) as Array.
@@ -202,10 +204,10 @@ In this case, you must use :count constraints instead of :present.
 There is another special rule, 'Combination'
 
 ```ruby
-    form do
-      combination :same_address, :fields => ["email01", "email02"], :same => true
-      combination :favorite_color, :fields => ["white", "black", "blue"], :any => true
-    end
+form do
+  combination :same_address, :fields => ["email01", "email02"], :same => true
+  combination :favorite_color, :fields => ["white", "black", "blue"], :any => true
+end
 ```
 
 Set rule-name as a first argument.
@@ -215,10 +217,12 @@ And one constraint like (:same => true), or (:any => true).
 :same and :any are called as 'Combination Constraint'
 For this purpose, formkeeper provides you a simple way to do same things.
 
+```ruby
     form do
       same :same_address, ["email01", "email02"]
       any :favorite_color, ["white", "black", "blue"]
     end
+```
 
 You can call a name of 'Combination Constraints' as a method.
 Followed by rule-name and target-fields.
@@ -229,9 +233,10 @@ All preset constraints are described at [10: Preset Combination Constraints]
 
 'form.failed?' can be used to judge if user's input is valid for the rule you build.
 
+```ruby
     post '/entry' do 
       form do
-        ...
+        #...
       end
       if form.failed?
         # user's input is invalid
@@ -239,6 +244,7 @@ All preset constraints are described at [10: Preset Combination Constraints]
         # user's input is valid!
       end
     end
+```
 
 ### 3: Pick up valid data
 
@@ -249,17 +255,19 @@ you can implement your domain logic with valid parameters.
 This data you can obtain through this method is a filtered data
 according to the rule you build (if you set a 'filters' rule).
 
+```ruby
     post '/entry' do 
       form do
-        ...
+        #...
       end
       if form.failed?
-        ...
+        #...
       else
         # do something with valid data
         Database.insert( :title => form[:field], :message => form[:message] )
       end
     end
+```
 
 ### 4: Check if what field has failed?
 
@@ -267,14 +275,15 @@ When validation is failed, you might want to provide user
 same form again, with error message that describes what fields was invalid.
 For this purpose, use 'failed_on?' method.
 
+```ruby
     post '/entry' do 
       form do
-        ...
+        #...
       end
       if form.failed?
         erb :entry
       else
-        ...
+        #...
       end
     end
     __END__
@@ -297,20 +306,22 @@ For this purpose, use 'failed_on?' method.
       </form> 
     </body>
     </html>
+```
 
 ### 5: Check if what field and constraint has failed?
 
 You can pass constraint-type to 'failed_on?' as a second argument.
 This provides you a way to show detailed error-messages.
 
+```ruby
     post '/entry' do 
       form do
-        ...
+        #...
       end
       if form.failed?
         erb :entry
       else
-        ...
+        #...
       end
     end
     __END__
@@ -336,28 +347,32 @@ This provides you a way to show detailed error-messages.
       </form> 
     </body>
     </html>
+```
 
 ### 6: Fill in form
 
 In many case you might want to fill in form with user's last input.
 Do like following. 'fill_in_form' automatically fill the fields with 'params'
 
+```ruby
     post '/entry' do 
       form do
-        ...
+        #...
       end
       if form.failed?
         output = erb :entry
         fill_in_form(output)
       else
-        ...
+        #...
       end
     end
+```
 
 ### 7: Message Handling
 
 You can aggregate a error messages into external yaml file.
 
+```yaml
     --- messages.yaml
     login:
       username:
@@ -371,18 +386,22 @@ You can aggregate a error messages into external yaml file.
     DEFAULT:
       username:
         present: username not found
-    ... 
+    -- ... 
+```
 
 DEFAULT is a special type. If it can't find setting for indicated validation-type, it uses message set for DEFAULT.
 After you prepare a yaml file, load it.
 
+```ruby
     form_messages File.expand_path(File.join(File.dirname(__FILE__), 'config', 'form_messages.yaml'))
     post '/entry' do 
-      ...
+      #...
     end
+```
 
 You can show messages bound to indicated action-name you set in yaml.
 
+```html
     <html>
       <head><title>Entry</title></head>
       <body>
@@ -395,9 +414,11 @@ You can show messages bound to indicated action-name you set in yaml.
       <% end %>
       </body>
     </html>
+```
 
 If you want to show messages for each field, separately, of course you can.
 
+```html
     <html>
       <head><title>Entry</title></head>
       <body>
@@ -420,6 +441,7 @@ If you want to show messages for each field, separately, of course you can.
       <label>password</label><input type="text" name="password">
       </body>
     </html>
+```
 
 ### 8: Preset Filters
 
@@ -452,6 +474,7 @@ If you want to show messages for each field, separately, of course you can.
 
 ### 11: Utilize Plugins
 
+```ruby
     require 'formkeeper/japanese' 
 
     post '/entry' do
@@ -459,9 +482,11 @@ If you want to show messages for each field, separately, of course you can.
         filters :zenkaku2hankaku
       end
     end
+```
 
 ### 12: Custom Filter
 
+```ruby
     form_filter :my_capitalize_filter do |value|
       value.capitalize
     end
@@ -471,7 +496,7 @@ If you want to show messages for each field, separately, of course you can.
         filters :my_capitalize_filter
       end
     end
-
+```
 
 ### 13: Custom Constraint
 
