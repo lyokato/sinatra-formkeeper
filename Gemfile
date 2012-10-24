@@ -6,7 +6,7 @@ gemspec
 gem "hpricot"
 gem "rack"
 gem "sinatra"
-gem "formkeeper", "~> 0.0.5"
+gem "formkeeper", "~> 0.0.6"
 
 group :development, :test do
   gem "rspec"
