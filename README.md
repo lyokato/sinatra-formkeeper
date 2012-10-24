@@ -98,7 +98,7 @@ form do
 end
 ```
 
-All preset filters are described at [8: Preset Filters]
+All preset filters are described at [8: Preset Filters](/8-preset-filters)
 
 #### field
 
@@ -121,7 +121,7 @@ And key-value pares are following the field name.
 They are constraints set for the field.
 You can add your favorite constraints here.
 
-All preset constraints are described at [9: Preset Constraints]
+All preset constraints are described at [9: Preset Constraints](/9-preset-constraints)
 Read the chapter for more detail.
 
 :present is a special constraint. if parameter not found for the field which
@@ -214,7 +214,7 @@ Set rule-name as a first argument.
 And you should set multiple target fields.
 And one constraint like (:same => true), or (:any => true).
 
-:same and :any are called as 'Combination Constraint'
+:same and :any are called as *Combination Constraint*
 For this purpose, formkeeper provides you a simple way to do same things.
 
 ```ruby
@@ -224,10 +224,10 @@ form do
 end
 ```
 
-You can call a name of 'Combination Constraints' as a method.
+You can call a name of *Combination Constraints* as a method.
 Followed by rule-name and target-fields.
 
-All preset constraints are described at [10: Preset Combination Constraints]
+All preset constraints are described at [10: Preset Combination Constraints](/10-preset-combination-constraints)
 
 ### 2: Check if user's input is valid or not
 
