@@ -42,13 +42,13 @@ end
 
 ### 0: Preparation
 
-At your application file's header, add 'require' line for this library.
+At your application file's header, add *require* line for this library.
 
 ```ruby
 require 'sinatra/formkeeper'
 ```
 
-And if your application is Sinatra::Base inheritance type, register Sinatra::FormKeeper
+And if your application is *Sinatra::Base* inheritance type, register *Sinatra::FormKeeper*
 
 ```ruby
 class MyApp < Sinatra::Base
@@ -73,13 +73,13 @@ post '/entry' do
 end
 ```
 
-Calling 'form' with block which includes rule-setting,
+Calling *form* with block which includes rule-setting,
 you can build a form-rule.
-There are some DSL-method to build rules. In this example, 'filters' and 'field' are written.
+There are some DSL-method to build rules. In this example, *filters* and *field* are written.
 
 #### filters
 
-You can set 'filters'. All input parameters are filtered by indicated filtering feature
+You can set *filters*. All input parameters are filtered by indicated filtering feature
 The filtering process is executed before validation.
 
 ```ruby
@@ -98,7 +98,7 @@ form do
 end
 ```
 
-All preset filters are described at [8: Preset Filters](/8-preset-filters)
+All preset filters are described at [8: Preset Filters](#8-preset-filters)
 
 #### field
 
@@ -111,7 +111,7 @@ form do
 end
 ```
 
-This constraint works for an input form named as "field_name", for instance
+This constraint works for an input form named as *field_name*, for instance
 
 ```html
 <input type="text" name="field_name" />
@@ -121,11 +121,11 @@ And key-value pares are following the field name.
 They are constraints set for the field.
 You can add your favorite constraints here.
 
-All preset constraints are described at [9: Preset Constraints](/9-preset-constraints)
+All preset constraints are described at [9: Preset Constraints](#9-preset-constraints)
 Read the chapter for more detail.
 
-:present is a special constraint. if parameter not found for the field which
-set :present constraint, the field will be marked as 'not present',
+*:present* is a special constraint. if parameter not found for the field which
+set *:present* constraint, the field will be marked as *not present*,
 and other validation for rest constraints won't be executed.
 
 You also can set :default
@@ -140,11 +140,11 @@ end
 When it's set, if parameter not found, the indicated value will be set
 and other validation for rest constraints won't be executed.
 
-You aren't allowed to set both :present and :default at same time.
+You aren't allowed to set both *:present* and *:default* at same time.
 
 And you can set filters here,
 if you don't want to filter all the parameters included in the request.
-This filtering setting only affets on :field_name.
+This filtering setting only affets on *:field_name*.
 
 ```ruby
 form do
@@ -196,12 +196,12 @@ Or
 ```
 
 Rack request handle such type of name (exp: field_name[]) as Array.
-For this type of input, use 'selection' method.
-In this case, you must use :count constraints instead of :present.
+For this type of input, use *selection* method.
+In this case, you must use *:count* constraints instead of *:present*.
 
 #### combination
 
-There is another special rule, 'Combination'
+There is another special rule, *Combination*
 
 ```ruby
 form do
@@ -214,7 +214,7 @@ Set rule-name as a first argument.
 And you should set multiple target fields.
 And one constraint like (:same => true), or (:any => true).
 
-:same and :any are called as *Combination Constraint*
+*:same* and *:any* are called as *Combination Constraint*
 For this purpose, formkeeper provides you a simple way to do same things.
 
 ```ruby
@@ -227,7 +227,7 @@ end
 You can call a name of *Combination Constraints* as a method.
 Followed by rule-name and target-fields.
 
-All preset constraints are described at [10: Preset Combination Constraints](/10-preset-combination-constraints)
+All preset constraints are described at [10: Preset Combination Constraints](#10-preset-combination-constraints)
 
 ### 2: Check if user's input is valid or not
 
@@ -251,9 +251,9 @@ end
 After validation is proccessed without any failure,
 you can implement your domain logic with valid parameters.
 
-'form[:field_name]' can be used to pick up a valid data.
+*form[:field_name]* can be used to pick up a valid data.
 This data you can obtain through this method is a filtered data
-according to the rule you build (if you set a 'filters' rule).
+according to the rule you build (if you set a *filters* rule).
 
 ```ruby
 post '/entry' do 
@@ -273,7 +273,7 @@ end
 
 When validation is failed, you might want to provide user
 same form again, with error message that describes what fields was invalid.
-For this purpose, use 'failed_on?' method.
+For this purpose, use *failed_on?* method.
 
 ```ruby
 post '/entry' do 
@@ -310,7 +310,7 @@ __END__
 
 ### 5: Check if what field and constraint has failed?
 
-You can pass constraint-type to 'failed_on?' as a second argument.
+You can pass constraint-type to *failed_on?* as a second argument.
 This provides you a way to show detailed error-messages.
 
 ```ruby
@@ -352,7 +352,7 @@ __END__
 ### 6: Fill in form
 
 In many case you might want to fill in form with user's last input.
-Do like following. 'fill_in_form' automatically fill the fields with 'params'
+Do like following. *fill_in_form* automatically fill the fields with *params*
 
 ```ruby
 post '/entry' do 
@@ -389,7 +389,7 @@ DEFAULT:
 -- ... 
 ```
 
-DEFAULT is a special type. If it can't find setting for indicated validation-type, it uses message set for DEFAULT.
+*DEFAULT* is a special type. If it can't find setting for indicated validation-type, it uses message set for *DEFAULT*.
 After you prepare a yaml file, load it.
 
 ```ruby
