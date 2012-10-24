@@ -384,7 +384,7 @@ If you want to show messages for each field, separately, of course you can.
 
 #### present
 #### length
-#### characters
+#### bytesize
 #### ascii
 #### regexp
 #### int
