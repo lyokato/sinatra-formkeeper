@@ -600,6 +600,19 @@ Alphabet and Number
 
 Alphabet, Number and Space
 
+#### email
+
+Email-Address
+
+```ruby
+post '/entry' do 
+  form do
+    field :your_address, :present => true, :email => true, :bytesize => 10..255
+  end
+  #...
+end
+```
+
 #### uri
 
 Limit a scheme as Array
