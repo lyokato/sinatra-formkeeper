@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "hpricot"
   gem.add_dependency "rack"
   gem.add_dependency "sinatra"
-  gem.add_dependency("formkeeper", "~> 0.0.9")
+  gem.add_dependency("formkeeper", "~> 0.0.12")
 
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "rake"
