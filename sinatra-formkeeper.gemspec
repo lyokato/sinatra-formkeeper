@@ -16,4 +16,13 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
+
+  gem.add_dependency "hpricot"
+  gem.add_dependency "rack"
+  gem.add_dependency "sinatra"
+  gem.add_dependency("formkeeper", "~> 0.0.9")
+
+  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "rake"
+  gem.add_development_dependency "rack-test"
 end
